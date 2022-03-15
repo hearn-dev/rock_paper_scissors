@@ -46,29 +46,31 @@ const playRound = (playerSelection, computerSelection=computerPlay()) => {
     
 }
 
-// const game = () => {
-//     let compScore = 0;
-//     let playerScore = 0;
+const game = () => {
+    let compScore = 0;
+    let playerScore = 0;
 
-//     for (let i = 0; i < 5; i++) {
-//         if(playRound(window.prompt()) == 'you') {
-//             playerScore += 1;
-//         } else {
-//             compScore += 1;
-//         }
-//     }
+    for (let i = 0; i < 5; i++) {
+        if(playRound('rock') == 'you' || playRound('paper') == 'you' || playRound('scissors') == 'you') {
+            playerScore += 1;
+            document.querySelector('#playerScore').innerText=`Player Score: ${playerScore}`
+        } else {
+            compScore += 1;
+            document.querySelector('#compScore').innerText=`Evil Computer Score: ${compScore}`
+        }
+    }
 
-//     if (compScore > playerScore) {
-//         console.log('You lose!');
-//         return 'You lose';
-//     } else if (compScore < playerScore) {
-//         console.log('You win!');
-//         return 'You win';
-//     } else {
-//         console.log('Tie!');
-//         return "It's a tie!";
-//     }
-// }
+    if (compScore > playerScore) {
+        console.log('You lose!');
+        return 'You lose';
+    } else if (compScore < playerScore) {
+        console.log('You win!');
+        return 'You win';
+    } else {
+        console.log('Tie!');
+        return "It's a tie!";
+    }
+}
 
 const r = document.querySelector('#rock');
 const p = document.querySelector('#paper');
