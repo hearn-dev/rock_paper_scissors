@@ -1,6 +1,24 @@
+let compScore = 0;
+let playerScore = 0;
+let plays = 0;
+
 const computerPlay = () => {
     const responses = ['Rock', 'Paper', 'Scissors'];
     return responses[Math.floor(Math.random() * responses.length)];
+}
+
+const gameEnd = () => {
+    if (compScore > playerScore) {
+        document.querySelector('#winner').innerText ="You've lost. Humanity is doomed to enslavement by the machine.";
+    } else if (compScore < playerScore) {
+        document.querySelector('#winner').innerText ="You've conquered the machine, but cursed humanity to live without technology.";
+    } else {
+        document.querySelector('#winner').innerText ="It's a tie, and the machine has decided to spare you.";
+    }
+    document.querySelector('#rock').disabled = true;
+    document.querySelector('#paper').disabled = true;
+    document.querySelector('#scissors').disabled = true;
+    return;
 }
 
 
@@ -11,66 +29,58 @@ const playRound = (playerSelection, computerSelection=computerPlay()) => {
     // Determine if there is a draw 
     if (computerSelection == playerSelection) {
         document.querySelector('#results').innerText = "It's a tie!"
-        return "Tie!";
+        plays++;
     
     // Determine winner if computer selected Rock
     } else if (computerSelection == 'rock') {
         if (playerSelection == 'paper') {
             document.querySelector('#results').innerText="You Win! Paper beats rock.";
-            return 'you';
+            playerScore++;
+            document.querySelector('#playerScore').innerText=`Player Score: ${playerScore}`;
+            plays++;
         } else if (playerSelection == 'scissors') {
             document.querySelector('#results').innerText="You Lose! Rock beats scissors.";
-            return 'comp';
+            compScore++;
+            document.querySelector('#compScore').innerText=`Evil Computer Score: ${compScore}`;
+            plays++;
         }
     
     // Determine winner if computer selected Paper
     } else if (computerSelection == 'paper') {
         if (playerSelection == 'scissors') {
             document.querySelector('#results').innerText="You Win! scissors beats paper.";
-            return 'you';
+            playerScore++;
+            document.querySelector('#playerScore').innerText=`Player Score: ${playerScore}`;
+            plays++;
         } else if (playerSelection == 'rock') {
             document.querySelector('#results').innerText="You Lose! Paper beats rock.";
-            return 'comp';
+            compScore++;
+            document.querySelector('#compScore').innerText=`Evil Computer Score: ${compScore}`;
+            plays++;
         }
 
     // Determine winner if computer selected Scissors
     } else if (computerSelection == 'scissors') {
         if (playerSelection == 'rock') {
             document.querySelector('#results').innerText="You Win! Rock beats scissors.";
-            return 'you';
+            playerScore++;
+            document.querySelector('#playerScore').innerText=`Player Score: ${playerScore}`;
+            plays++;
         } else if (playerSelection == 'paper') {
             document.querySelector('#results').innerText="You Lose! Scissors beats paper.";
-            return 'comp';
-        }
-    }
-    
-}
-
-const game = () => {
-    let compScore = 0;
-    let playerScore = 0;
-
-    for (let i = 0; i < 5; i++) {
-        if(playRound('rock') == 'you' || playRound('paper') == 'you' || playRound('scissors') == 'you') {
-            playerScore += 1;
-            document.querySelector('#playerScore').innerText=`Player Score: ${playerScore}`
-        } else {
-            compScore += 1;
-            document.querySelector('#compScore').innerText=`Evil Computer Score: ${compScore}`
+            compScore++;
+            document.querySelector('#compScore').innerText=`Evil Computer Score: ${compScore}`;
+            plays++;
         }
     }
 
-    if (compScore > playerScore) {
-        console.log('You lose!');
-        return 'You lose';
-    } else if (compScore < playerScore) {
-        console.log('You win!');
-        return 'You win';
-    } else {
-        console.log('Tie!');
-        return "It's a tie!";
+    if (plays>=5) {
+        gameEnd();
     }
+
 }
+
+
 
 const r = document.querySelector('#rock');
 const p = document.querySelector('#paper');
@@ -87,3 +97,4 @@ p.addEventListener('click', () => {
 s.addEventListener('click', () => {
     playRound('scissors');
 });
+
