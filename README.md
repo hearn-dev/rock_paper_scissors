@@ -10,4 +10,6 @@ On the page, simply click the button of your selected weapon. The program will d
 
 ![Screenshot](screenshot.png)
 
+## Live
 
+https://hearn-dev.github.io/rock_paper_scissors/
